@@ -119,7 +119,7 @@ public class CustomerServiceImpl implements CustomerService {
 						+ ",<br></h2><h3>Welcome Back..!<b></b>!</br>Thank you for using our services on Caltex...  </br>\r\n"
 						+ "<br><b></br></br>See you around</br></h3><h2>Team Caltex :: Nikita </h2><br><br><img src='cid:id101'/><body></html>",
 						true);
-				helper.setSubject("Welcome to Caltex...!");
+				helper.setSubject("Welcome back to Caltex...!");
 				ClassPathResource file1 = new ClassPathResource("caltexImg.png");
 				helper.addInline("id101", file1);
 				sender.send(message);
