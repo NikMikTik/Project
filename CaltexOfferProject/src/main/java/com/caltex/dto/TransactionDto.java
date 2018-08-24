@@ -1,14 +1,20 @@
 package com.caltex.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class TransactionDto {
 	private long transactionId;
-	private String transactionType;
-	private Date firstTransaction;
-	private Date latestTransaction;
-	private int totalTransactions=1;
-	
+	private String transactionType = "Simple";
+	private String serviceName = "Oil Fillup";
+	private LocalDateTime firstTransaction;
+	private LocalDateTime latestTransaction;
+	@NotNull
+	private int totalTransactions = 1;
+
 	public long getTransactionId() {
 		return transactionId;
 	}
@@ -25,19 +31,27 @@ public class TransactionDto {
 		this.transactionType = transactionType;
 	}
 
-	public Date getFirstTransaction() {
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public LocalDateTime getFirstTransaction() {
 		return firstTransaction;
 	}
 
-	public void setFirstTransaction(Date firstTransaction) {
+	public void setFirstTransaction(LocalDateTime firstTransaction) {
 		this.firstTransaction = firstTransaction;
 	}
 
-	public Date getLatestTransaction() {
+	public LocalDateTime getLatestTransaction() {
 		return latestTransaction;
 	}
 
-	public void setLatestTransaction(Date latestTransaction) {
+	public void setLatestTransaction(LocalDateTime latestTransaction) {
 		this.latestTransaction = latestTransaction;
 	}
 
@@ -48,6 +62,5 @@ public class TransactionDto {
 	public void setTotalTransactions(int totalTransactions) {
 		this.totalTransactions = totalTransactions;
 	}
-	
 
 }

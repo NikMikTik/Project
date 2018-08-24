@@ -1,5 +1,6 @@
 package com.caltex.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -7,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Transaction_table")
@@ -15,9 +18,11 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long transactionId;
 	private String transactionType = "Simple";
-	private Date firstTransaction;
-	private Date latestTransaction;
-	private int totalTransactions;
+	private String serviceName = "Oil Fillup";
+	private LocalDateTime firstTransaction;
+	private LocalDateTime latestTransaction;
+	@NotNull
+	private int totalTransactions = 1;
 
 	public long getTransactionId() {
 		return transactionId;
@@ -35,20 +40,12 @@ public class Transaction {
 		this.transactionType = transactionType;
 	}
 
-	public Date getFirstTransaction() {
-		return firstTransaction;
+	public String getServiceName() {
+		return serviceName;
 	}
 
-	public void setFirstTransaction(Date firstTransaction) {
-		this.firstTransaction = firstTransaction;
-	}
-
-	public Date getLatestTransaction() {
-		return latestTransaction;
-	}
-
-	public void setLatestTransaction(Date latestTransaction) {
-		this.latestTransaction = latestTransaction;
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
 	}
 
 	public int getTotalTransactions() {
@@ -59,21 +56,38 @@ public class Transaction {
 		this.totalTransactions = totalTransactions;
 	}
 
-	@Override
-	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", transactionType=" + transactionType
-				+ ", firstTransaction=" + firstTransaction + ", latestTransaction=" + latestTransaction
-				+ ", totalTransactions=" + totalTransactions + "]";
+	public LocalDateTime getFirstTransaction() {
+		return firstTransaction;
 	}
 
-	public Transaction(long transactionId, String transactionType, Date firstTransaction, Date latestTransaction,
-			int totalTransactions) {
+	public void setFirstTransaction(LocalDateTime firstTransaction) {
+		this.firstTransaction = firstTransaction;
+	}
+
+	public LocalDateTime getLatestTransaction() {
+		return latestTransaction;
+	}
+
+	public void setLatestTransaction(LocalDateTime latestTransaction) {
+		this.latestTransaction = latestTransaction;
+	}
+
+	public Transaction(long transactionId, String transactionType, String serviceName, LocalDateTime firstTransaction,
+			LocalDateTime latestTransaction, @NotNull int totalTransactions) {
 		super();
 		this.transactionId = transactionId;
 		this.transactionType = transactionType;
+		this.serviceName = serviceName;
 		this.firstTransaction = firstTransaction;
 		this.latestTransaction = latestTransaction;
 		this.totalTransactions = totalTransactions;
+	}
+
+	@Override
+	public String toString() {
+		return "Transaction [transactionId=" + transactionId + ", transactionType=" + transactionType + ", serviceName="
+				+ serviceName + ", firstTransaction=" + firstTransaction + ", latestTransaction=" + latestTransaction
+				+ ", totalTransactions=" + totalTransactions + "]";
 	}
 
 	public Transaction() {
