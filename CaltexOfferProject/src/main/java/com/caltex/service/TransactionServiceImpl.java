@@ -63,6 +63,7 @@ public class TransactionServiceImpl implements TransactionService {
 			if (twoMinBehind.compareTo(latest) > 0) {
 				if (transaction.getTransactionType().equals("Simple")) {
 					transaction.setTransactionType("Offered");
+					transaction.setCashbackStatus("Not Availed");
 					mailSending(customer);
 					logger.info("12 days gone... Sending offer...");
 
@@ -72,6 +73,7 @@ public class TransactionServiceImpl implements TransactionService {
 					mailSending(customer);
 				} else {
 					transaction.setTransactionType("Critical");
+					transaction.setCashbackStatus("Expired");
 					customer.setCustomerType("InActive");
 					logger.info("No Transaction made.. Setting this user as InActive");
 				}
@@ -90,11 +92,11 @@ public class TransactionServiceImpl implements TransactionService {
 			helper.setTo(customer.getCustomerEmail());
 			if (customer.getTransaction().getTransactionType().equals("Offered")) {
 				helper.setText("<html><body><h2>Hi " + customer.getCustomerName()
-						+ ",</h2><br>We have been missing you...<br> We are giving you an offer of 40% cashback on your next transaction.</br>See you around</br></h3><h2>Team Caltex :: Nikita </h2><br><br><img src='cid:id101'/><body></html>",
+						+ ",</h2><br>We have been missing you...<br> We are giving you an offer of "+ transaction.getCashback() +"% cashback on your next transaction.</br>See you around</br></h3><h2>Team Caltex :: Nikita </h2><br><br><img src='cid:id101'/><body></html>",
 						true);
 			} else if (customer.getTransaction().getTransactionType().equals("Alerted")) {
 				helper.setText("<html><body><h2>Hi " + customer.getCustomerName()
-						+ ",</h2><br>We have been missing you...<br> Our offer of 40% cashback will expire in few days. Avail the benefit now. </br>See you around</br></h3><h2>Team Caltex :: Nikita </h2><br><br><img src='cid:id101'/><body></html>",
+						+ ",</h2><br>We have been missing you...<br> Our offer of "+ transaction.getCashback() +"% cashback will expire in few days. Avail the benefit now. </br>See you around</br></h3><h2>Team Caltex :: Nikita </h2><br><br><img src='cid:id101'/><body></html>",
 						true);
 			}
 			helper.setSubject("Urgent: Caltex Services [Limited Period Offer]");

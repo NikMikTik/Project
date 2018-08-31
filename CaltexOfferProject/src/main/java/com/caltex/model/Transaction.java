@@ -21,6 +21,8 @@ public class Transaction {
 	private String serviceName = "Oil Fillup";
 	private LocalDateTime firstTransaction;
 	private LocalDateTime latestTransaction;
+	private float cashback=40f;
+	private String cashbackStatus="Not Offered"; 
 	@NotNull
 	private int totalTransactions = 1;
 
@@ -72,14 +74,18 @@ public class Transaction {
 		this.latestTransaction = latestTransaction;
 	}
 
+	
+
 	public Transaction(long transactionId, String transactionType, String serviceName, LocalDateTime firstTransaction,
-			LocalDateTime latestTransaction, @NotNull int totalTransactions) {
+			LocalDateTime latestTransaction, float cashback, String cashbackStatus, @NotNull int totalTransactions) {
 		super();
 		this.transactionId = transactionId;
 		this.transactionType = transactionType;
 		this.serviceName = serviceName;
 		this.firstTransaction = firstTransaction;
 		this.latestTransaction = latestTransaction;
+		this.cashback = cashback;
+		this.cashbackStatus = cashbackStatus;
 		this.totalTransactions = totalTransactions;
 	}
 
@@ -87,7 +93,24 @@ public class Transaction {
 	public String toString() {
 		return "Transaction [transactionId=" + transactionId + ", transactionType=" + transactionType + ", serviceName="
 				+ serviceName + ", firstTransaction=" + firstTransaction + ", latestTransaction=" + latestTransaction
-				+ ", totalTransactions=" + totalTransactions + "]";
+				+ ", cashback=" + cashback + ", cashbackStatus=" + cashbackStatus + ", totalTransactions="
+				+ totalTransactions + "]";
+	}
+
+	public float getCashback() {
+		return cashback;
+	}
+
+	public void setCashback(float cashback) {
+		this.cashback = cashback;
+	}
+
+	public String getCashbackStatus() {
+		return cashbackStatus;
+	}
+
+	public void setCashbackStatus(String cashbackStatus) {
+		this.cashbackStatus = cashbackStatus;
 	}
 
 	public Transaction() {

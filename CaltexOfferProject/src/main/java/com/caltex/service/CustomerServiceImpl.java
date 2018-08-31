@@ -105,6 +105,10 @@ public class CustomerServiceImpl implements CustomerService {
 			Transaction transaction = new Transaction();
 			transaction = customer.getTransaction();
 			transaction.setLatestTransaction(LocalDateTime.now());
+			if (transaction.getCashbackStatus().equals("Not Availed")) {
+				transaction.setCashbackStatus("Availed");
+				transaction.setCashback(20);
+			}
 			transaction.setTransactionType("Simple");
 			transaction.setTotalTransactions(transaction.getTotalTransactions() + 1);
 			transactionRepository.save(transaction);

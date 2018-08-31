@@ -12,6 +12,8 @@ public class TransactionDto {
 	private String serviceName = "Oil Fillup";
 	private LocalDateTime firstTransaction;
 	private LocalDateTime latestTransaction;
+	private float cashback=40f;
+	private String cashbackStatus="Not Offered"; 
 	@NotNull
 	private int totalTransactions = 1;
 
@@ -61,6 +63,22 @@ public class TransactionDto {
 
 	public void setTotalTransactions(int totalTransactions) {
 		this.totalTransactions = totalTransactions;
+	}
+
+	public float getCashback() {
+		return cashback;
+	}
+
+	public void setCashback(float cashback) {
+		this.cashback = cashback;
+	}
+
+	public String getCashbackStatus() {
+		return cashbackStatus;
+	}
+
+	public void setCashbackStatus(String cashbackStatus) {
+		this.cashbackStatus = cashbackStatus;
 	}
 
 }
