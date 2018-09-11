@@ -158,9 +158,9 @@ public class UserServiceImpl implements IUserService {
 				helper.setTo(user.getUserEmail());
 				helper.setText("<html><body><h2>Hi " + user.getUserName()
 						+ ",<br></h2><h3>You requested that your Password to be Reset<b></b>!</br>Please visit the following link below or copy and paste it in your browser to create a new Password</br></br>"
-						+ "http://localhost:8090/campaign/resetPwd/{"+resetToken+"}</br>If you did not made the request to reset the password, Please Ignore...</br></h3><h2>Team Campaign Mgmt :: Nikita</h2><br><br><img src='cid:id101'/>"
-								+ " **** This is an Auto Generated Mail. Please do not Reply. **** <body></html>",
-						true);
+						+ "http://localhost:8090/campaign/resetPwd/{" + resetToken
+						+ "}</br>If you did not made the request to reset the password, Please Ignore...</br></h3><h2>Team Campaign Mgmt :: Nikita</h2><br><br><img src='cid:id101'/>"
+						+ " **** This is an Auto Generated Mail. Please do not Reply. **** <body></html>", true);
 				helper.setSubject("Campaign Mgmt Application: [Password Reset]");
 				ClassPathResource file1 = new ClassPathResource("campaignMgmt.jpg");
 				helper.addInline("id101", file1);
@@ -180,7 +180,6 @@ public class UserServiceImpl implements IUserService {
 				e.printStackTrace();
 			}
 
-			
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -195,8 +194,21 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public ResponseDto resetPwdFunction(String resetToken) {
-		if(iredis.getValue(resetToken)==null)
-		return response;
+		if (iredis.getValue(resetToken) == null) {
+			response.setCode(HttpStatus.FORBIDDEN.value());
+			response.setMessage(
+					"Either You are not Authorized to reset your Password or your Reset Password link Expired..");
+			response.setResponse("Denied...");
+			response.setToken(resetToken);
+			return response;
+		} else {
+			response.setCode(HttpStatus.OK.value());
+			response.setMessage(
+					"You can reset your Password");
+			response.setResponse("Access Given");
+			response.setToken(resetToken);
+			return response;
+		}
 	}
 
 }
