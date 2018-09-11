@@ -1,5 +1,6 @@
 package com.batch.reader;
 
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +17,12 @@ public class Reader {
 
 
 	@Bean
-	public RepositoryItemReader<User> repositoryItemReader() {
+	@StepScope
+	public RepositoryItemReader<User> repositoryItemReader() throws Exception {
 		RepositoryItemReader<User> repositoryItemReader=new RepositoryItemReader<>();
 		repositoryItemReader.setRepository(userRepository);
 		repositoryItemReader.setMethodName("findAll");
+		repositoryItemReader.afterPropertiesSet();
 		return repositoryItemReader;
 		
 	}
